@@ -14,6 +14,7 @@ class docLoader():
     """
     def __init__(self, source_folder, file_type=".qmd"):
         self.file_names = []
+        source_folder = os.path.expanduser(source_folder)
         if not os.path.exists(source_folder):
             print(f"error finding directory with path {source_folder}")
             return
