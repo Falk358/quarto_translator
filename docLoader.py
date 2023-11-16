@@ -7,7 +7,7 @@ import os
 
 
 
-class docLoader():
+class DocLoader():
     """
     uses a source folder and filetype to load all files of given filetype within the folder into a dict of strings (each string contains one files content; filepath as key)
 
