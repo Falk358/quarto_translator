@@ -6,7 +6,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 
 
-class textSplitter():
+class QuartoTextSplitter():
 
     """
     receives a string containing a single document and returns a list of splits
@@ -21,17 +21,27 @@ class textSplitter():
         self.md_text_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
 
 
-    def splitTextFileDict(self, file_dict: dict):
+    def splitAllTextFileDict(self, file_dict: dict):
         """
         takes a dictionary with file path as key and markdown text as input;
         iterates over dictionary and returns dict with filepath as key; langchain.schema.document.Document as value
         """
-        split_doc_dict = {}
+        split_file_dict = {}
         for key, document in file_dict.items():
-            split_doc = self.splitText(document)
-            split_doc_dict[key] = split_doc
+            split_file = self.splitText(document)
+            split_file_dict[key] = split_file
         
-        return split_doc
+        return split_file_dict
+
+    def printFileDocumentList(self, documents: list):
+        """
+        input: list of Document() associated to single file (single entry in split_file_dict)
+        prints individual Document (which are document splits processed by MarkDownHeaderTextSplitter())
+        """
+        for doc in documents:
+            print(doc)
+            print("---------------------------------------next--------------------------------")
+        
 
 
     def splitText(self, document_string):
