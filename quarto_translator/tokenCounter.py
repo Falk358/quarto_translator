@@ -18,18 +18,6 @@ class TokenCounter():
         self.token_counter += num_tokens
         return num_tokens
 
-    def countTokensInDocument(self, doc: Document):
-        """
-        input: langchain document
-        return: Number of tokens in document
-        CAREFUL this method does NOT increase the internal token counter; main use is for debugging
-        """
-        headers = str(doc.metadata)
-        content = str(doc.page_content)
-        num_tokens_header = len(self.encoding.encode(headers))
-        num_tokens_content = len(self.encoding.encode(content))
-        return num_tokens_header + num_tokens_content  
-        
 
     def getCounter(self):
         return self.token_counter
