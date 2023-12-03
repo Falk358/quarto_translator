@@ -4,6 +4,7 @@ from quarto_translator.textSplitter import QuartoTextSplitter
 from quarto_translator.docLoader import DocLoader
 from langchain.schema.document import Document
 from configparser import ConfigParser
+from quarto_translator.translator import Translator
 
 
 class ReconstructionTest(unittest.TestCase):
@@ -13,9 +14,9 @@ class ReconstructionTest(unittest.TestCase):
 
     def setUp(self):
         self.markdown_test_string = "# My level 1 header\n ## My level 2 header\n This is content under the level 2 header.\n ## My other level 2 header\n blabala this is other content under my other level 2 header"
-        configparser = ConfigParser()
-        configparser.read("translator.config")
-        self.docloader = DocLoader(configparser)
+        self.configparser = ConfigParser()
+        self.configparser.read("translator.config")
+        self.docloader = DocLoader(self.configparser)
         self.docloader.loadContents()
         self.test_file_contents_dict = self.docloader.getContentsDict()
         
@@ -62,6 +63,24 @@ class ReconstructionTest(unittest.TestCase):
 
         assert(len(first_file_text)+1 == len(first_file_reconstructed))
 
+
+    def testSingleFileTranslation(self):
+        splitter = QuartoTextSplitter(chunk_size= self.chunk_size)
+        test_file_contents_split_dict = splitter.splitAllTextFileDict(self.test_file_contents_dict)
+        first_filepath = next(iter(self.test_file_contents_dict))
+
+        translator = Translator(file_chunk_dict=test_file_contents_split_dict, parser=self.configparser)
+
+        translated_file = translator.translateFile(first_filepath)
+
+        first_file_text = ""
+        with open(first_filepath, "r") as first_file:
+            first_file_text = first_file.read()
+
+        print(f"len original:{len(first_file_text)}")
+        print(f"len reconstructed:{len(translated_file)}")
+
+        assert(len(first_file_text)+1 == len(translated_file))
 
 
 
