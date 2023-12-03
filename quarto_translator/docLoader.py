@@ -1,4 +1,5 @@
 import os
+from configparser import ConfigParser
 
 
 
@@ -7,18 +8,19 @@ class DocLoader():
     uses a source folder and filetype to load all files of given filetype within the folder into a dict of strings (each string contains one files content; filepath as key)
 
     """
-    def __init__(self, source_folder, file_type=".qmd"):
+    def __init__(self, configparser : ConfigParser, file_type=".qmd"):
         self.file_names = []
+        source_folder = configparser.get("filepaths", "SOURCE_PATH")
         source_folder = os.path.expanduser(source_folder)
         if not os.path.exists(source_folder):
             print(f"error finding directory with path {source_folder}")
             return
         self.file_contents = {} # contains path_to_file as key and file contents (string) as val
-        self.__find_filenames(source_folder, file_type)
+        self.__findFilenames(source_folder, file_type)
     
 
 
-    def __find_filenames(self, source_folder: str, file_type : str):
+    def __findFilenames(self, source_folder: str, file_type : str):
         for root, _, files in os.walk(source_folder, topdown=True):
             for file_name in files:
                 print(file_name)
