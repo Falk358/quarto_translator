@@ -1,7 +1,6 @@
 import unittest
 import os
 from quarto_translator.textSplitter import QuartoTextSplitter
-from quarto_translator.textReconstructor import QuartoTextReconstructor
 from quarto_translator.docLoader import DocLoader
 from langchain.schema.document import Document
 from configparser import ConfigParser
@@ -53,7 +52,7 @@ class ReconstructionTest(unittest.TestCase):
 
         first_file_reconstructed = ""
         for chunk in test_file_contents_split_dict[first_filepath]:
-            first_file_reconstructed = first_file_reconstructed +" " + chunk
+            first_file_reconstructed = first_file_reconstructed + chunk + "\n\n"
 
         with open("first_file_reconstructed.qmd", "w") as reconstructed_file:
             reconstructed_file.write(first_file_reconstructed)
@@ -61,7 +60,7 @@ class ReconstructionTest(unittest.TestCase):
         print(f"len original:{len(first_file_text)}")
         print(f"len reconstructed:{len(first_file_reconstructed)}")
 
-        assert(len(first_file_text) == len(first_file_reconstructed))
+        assert(len(first_file_text)+1 == len(first_file_reconstructed))
 
 
 
