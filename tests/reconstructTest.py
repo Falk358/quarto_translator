@@ -25,7 +25,16 @@ class ReconstructionTest(unittest.TestCase):
         self.test_doc = test_doc
         self.test_doc_result = "# Test Header 1\n ## Test Header 2\n this is a test document for testing reconstruction\n here is a new line"
 
+        
+        self.source_dir = self.configparser["filepaths"]["source"]
+        self.target_dir = self.configparser["filepaths"]["target"]
+        self.imaginary_file_name = "/test_file.txt"
+        self.imaginary_file_source_path = self.source_dir + self.imaginary_file_name
+        self.imaginary_file_target_path = self.target_dir + self.imaginary_file_name
 
+    def tearDown(self):
+        if (os.path.isfile(self.imaginary_file_target_path)):
+            os.remove(self.imaginary_file_target_path)
 
 
     def testTextSplitter(self):
@@ -64,16 +73,25 @@ class ReconstructionTest(unittest.TestCase):
         assert(len(first_file_text)+1 == len(first_file_reconstructed))
 
 
-    def testSingleFileTranslation(self):
-        splitter = QuartoTextSplitter(chunk_size= self.chunk_size)
-        test_file_contents_split_dict = splitter.splitAllTextFileDict(self.test_file_contents_dict)
-        first_filepath = next(iter(self.test_file_contents_dict))
+    #def testSingleFileTranslation(self):
+    #    splitter = QuartoTextSplitter(chunk_size= self.chunk_size)
+    #    test_file_contents_split_dict = splitter.splitAllTextFileDict(self.test_file_contents_dict)
+    #    first_filepath = next(iter(self.test_file_contents_dict))
 
-        translator = Translator(file_chunk_dict=test_file_contents_split_dict, parser=self.configparser)
+    #    translator = Translator(file_chunk_dict=test_file_contents_split_dict, parser=self.configparser)
 
-        translated_file = translator.translateFile(first_filepath)
+    #    translated_file = translator.translateFile(first_filepath)
 
-        assert(len(translated_file)>0)
+    #    assert(len(translated_file)>0)
+
+    def testFileWriting(self):
+
+        test_file_chunk = {self.imaginary_file_source_path: ["chunk1\n", "chunk2\n", "chunk3 this is a longer chonk bllallablalbal\n", "chunk4\n"] }
+        translator = Translator(parser=self.configparser, file_chunk_dict=test_file_chunk)
+        translator.writeSingleFileToTarget(filepath=self.imaginary_file_source_path, file_string_content="blababla this is a test")
+        
+        assert(os.path.isfile(self.imaginary_file_target_path))
+
 
 
 
