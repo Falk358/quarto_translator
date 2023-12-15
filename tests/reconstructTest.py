@@ -30,9 +30,7 @@ class ReconstructionTest(unittest.TestCase):
         self.target_dir = self.configparser["filepaths"]["TARGET_PATH"]
         imaginary_file_name = "test_file.txt"
         imaginary_file_name_no_ext = os.path.splitext(imaginary_file_name)[0]
-        print(f" filename: {imaginary_file_name_no_ext}")
         imaginary_file_ext = os.path.splitext(imaginary_file_name)[1]
-        print(f" file extension: {imaginary_file_ext}")
         self.imaginary_file_source_path = self.source_dir + "/"+ imaginary_file_name
         self.imaginary_file_target_path = self.target_dir + "/" + imaginary_file_name_no_ext + "_translated" + imaginary_file_ext
 
