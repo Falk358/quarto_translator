@@ -19,7 +19,7 @@ class QuartoTextSplitter():
     def splitAllTextFileDict(self, file_dict: dict):
         """
         takes a dictionary with file path as key and markdown text as value as input;
-        iterates over dictionary and returns dict with filepath as key; langchain.schema.document.Document as value
+        iterates over dictionary and returns dict with filepath as key; list of strings (each string is a chunk) as value
         """
         split_file_dict = {}
         for key, document in file_dict.items():
