@@ -15,7 +15,7 @@ class Translator():
         self.__setup(parser)
         self.model_type = model
         self.llm = OpenAI(api_key= self.api_key)
-        self.system_message = {"role": "system", "content":  f"Please act as a translator from {self.source_language} to {self.target_language}. The following is a quarto markdown file: please only translate the textual content, leaving the quarto and markdown instructions in the file."}
+        self.system_message = {"role": "system", "content":  f"Please act as a translator from {self.source_language} to {self.target_language}. The following is a quarto markdown file: please only translate the textual content, leaving the quarto and markdown instructions in the file. Furthermore, if you come across a reference within regular text which is annotated with an \"@\" sign, please leave it as is. Example: @fig-C9.G.3."}
 
 
     def __setup(self, parser):
