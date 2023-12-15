@@ -26,11 +26,15 @@ class ReconstructionTest(unittest.TestCase):
         self.test_doc_result = "# Test Header 1\n ## Test Header 2\n this is a test document for testing reconstruction\n here is a new line"
 
         
-        self.source_dir = self.configparser["filepaths"]["source"]
-        self.target_dir = self.configparser["filepaths"]["target"]
-        self.imaginary_file_name = "/test_file.txt"
-        self.imaginary_file_source_path = self.source_dir + self.imaginary_file_name
-        self.imaginary_file_target_path = self.target_dir + self.imaginary_file_name
+        self.source_dir = self.configparser["filepaths"]["SOURCE_PATH"]
+        self.target_dir = self.configparser["filepaths"]["TARGET_PATH"]
+        imaginary_file_name = "test_file.txt"
+        imaginary_file_name_no_ext = os.path.splitext(imaginary_file_name)[0]
+        print(f" filename: {imaginary_file_name_no_ext}")
+        imaginary_file_ext = os.path.splitext(imaginary_file_name)[1]
+        print(f" file extension: {imaginary_file_ext}")
+        self.imaginary_file_source_path = self.source_dir + "/"+ imaginary_file_name
+        self.imaginary_file_target_path = self.target_dir + "/" + imaginary_file_name_no_ext + "_translated" + imaginary_file_ext
 
     def tearDown(self):
         if (os.path.isfile(self.imaginary_file_target_path)):

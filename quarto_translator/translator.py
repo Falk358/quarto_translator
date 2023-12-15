@@ -33,8 +33,7 @@ class Translator():
         """
         translates a single file defined by filepath (absolute path to file)
         """
-        translated_file = ""
-        llm_prompts = []
+        translated_file_string = ""
         llm_outputs = []
         for chunk in self.file_chunk_dict[filepath]:
             user_message = {"role": "user", "content": chunk}
@@ -47,9 +46,9 @@ class Translator():
 
 
         for output in llm_outputs:
-            translated_file = translated_file + "\n\n" + output.content
+            translated_file_string = translated_file_string + "\n\n" + output.content
 
-        return translated_file
+        return translated_file_string
 
 
     def translateAllFiles(self):
@@ -61,6 +60,22 @@ class Translator():
 
         return translated_file_dict
 
+    def writeSingleFileToTarget(self, filepath: str, file_string_content: str):
+        """
+        takes path to source file and string containing translated file as argument, writes file with same name and _translated extension into the target folder specified in .conf
+        """
+        filename = os.path.basename(filepath)
+        filename_no_ext = os.path.splitext(filename)[0]
+        file_ext = os.path.splitext(filename)[1]
+        if self.output_folder is None:
+            print(f"Error! No output folder read from config file; Aborting writing file {filename}")
+            return 
+
+        target_path = self.output_folder + "/" + filename_no_ext + "_translated" + file_ext
+
+        with open(target_path, "w") as target_file:
+            target_file.write(file_string_content)
+        
 
     def writeAllFilesToTarget(self, translated_file_dict:dict):
         """takes dict with source file path as key and translated file string as value as argument; 
