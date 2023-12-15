@@ -1,5 +1,5 @@
 # quarto_translator
-A python project for translating quarto markdown files using the openai API
+A python project for translating quarto markdown files using the openai API. Note that this program has only been tested for Linux, functionality on Windows is not guaranteed due to different path separators in Windows (uses `\` instead of `/`).
 
 
 
