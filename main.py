@@ -28,7 +28,7 @@ def main():
     loader = DocLoader(configparser = configparser)
     loader.loadContents()
     #makeEstimate(loader)
-    splitter = QuartoTextSplitter(chunk_size= 500)
+    splitter = QuartoTextSplitter(chunk_size= 2000)
     all_files = loader.getContentsDict()
     text_splits = splitter.splitAllTextFileDict(all_files)
     translator = Translator(file_chunk_dict=text_splits, parser=configparser)

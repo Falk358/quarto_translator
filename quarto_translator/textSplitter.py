@@ -13,7 +13,7 @@ class QuartoTextSplitter():
     """
     def __init__(self, chunk_size: int):
         
-        self.md_text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(encoding_name= "cl100kbase", model_name= "gpt-3.5-turbo", chunk_size = chunk_size, chunk_overlap = 0)
+        self.md_text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(encoding_name= "cl100kbase", model_name= "gpt-3.5-turbo", chunk_size = chunk_size, chunk_overlap = 0, separators=[":::","\n\n", "\n", " ", ""])
 
 
     def splitAllTextFileDict(self, file_dict: dict):
@@ -30,8 +30,8 @@ class QuartoTextSplitter():
 
     def printFileChunks(self, chunks: list):
         """
-        input: list of Document() associated to single file (single entry in split_file_dict)
-        prints individual Document (which are document splits processed by MarkDownHeaderTextSplitter())
+        input: list of strings associated to single file (single entry in split_file_dict)
+        prints text chunks (strings)
         """
         for chunk in chunks:
             print(chunk)
