@@ -78,11 +78,12 @@ class Translator():
         
 
     def writeAllFilesToTarget(self, translated_file_dict:dict):
-        """takes dict with source file path as key and translated file string as value as argument; 
-        writes the strings to the target dir specified in .conf file"""
-
-        pass 
-
+        """
+        takes dict with source file path as key and translated file string as value as argument; 
+        writes the strings to the target dir specified in .conf file
+        """
+        for source_path, translated_file in translated_file_dict.items():
+            self.writeSingleFileToTarget(filepath=source_path, file_string_content=translated_file)
 
 
 
