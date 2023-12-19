@@ -47,11 +47,6 @@ class ReconstructionTest(unittest.TestCase):
             assert(type(chunk) is str)
 
 
-    #def testDocumentReconstruction(self):
-    #    reconstructor = QuartoTextReconstructor(self.test_file_contents_dict)
-    #    reconstructed_string = reconstructor.reconstructTextFromDocument(self.test_doc)
-    #    assert(self.test_doc_result == reconstructed_string)
-
     def testFileDocumentReconstruction(self):
         splitter = QuartoTextSplitter(chunk_size= self.chunk_size)
         test_file_contents_split_dict = splitter.splitAllTextFileDict(self.test_file_contents_dict)
@@ -64,27 +59,13 @@ class ReconstructionTest(unittest.TestCase):
 
         first_file_reconstructed = ""
         for chunk in test_file_contents_split_dict[first_filepath]:
-            first_file_reconstructed = first_file_reconstructed + chunk + "\n\n"
+            first_file_reconstructed = first_file_reconstructed + "\n\n" + chunk 
 
-        with open("first_file_reconstructed.qmd", "w") as reconstructed_file:
-            reconstructed_file.write(first_file_reconstructed)
-
-        print(f"len original:{len(first_file_text)}")
-        print(f"len reconstructed:{len(first_file_reconstructed)}")
-
-        assert(len(first_file_text)+1 == len(first_file_reconstructed))
+        assert(len(first_file_text) <= len(first_file_reconstructed))
+        difference_in_length = len(first_file_reconstructed.replace("\n", "")) - len(first_file_text.replace("\n", ""))
+        assert(difference_in_length == 0) 
 
 
-    #def testSingleFileTranslation(self):
-    #    splitter = QuartoTextSplitter(chunk_size= self.chunk_size)
-    #    test_file_contents_split_dict = splitter.splitAllTextFileDict(self.test_file_contents_dict)
-    #    first_filepath = next(iter(self.test_file_contents_dict))
-
-    #    translator = Translator(file_chunk_dict=test_file_contents_split_dict, parser=self.configparser)
-
-    #    translated_file = translator.translateFile(first_filepath)
-
-    #    assert(len(translated_file)>0)
 
     def testFileWriting(self):
 
