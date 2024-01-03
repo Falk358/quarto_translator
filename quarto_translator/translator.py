@@ -10,10 +10,10 @@ class Translator():
     calls chatpt-3.5 turbo to translate all files in passed dictionary
     parameter explanation file_chunk_dict: dictionary with filepath as key and list of text chunks of that file as value
     """
-    def __init__(self, file_chunk_dict: dict, parser: ConfigParser, model = "gpt-3.5-turbo"):
+    def __init__(self, file_chunk_dict: dict, parser: ConfigParser, model_name = "gpt-4"):
         self.file_chunk_dict = file_chunk_dict
         self.__setup(parser)
-        self.model_type = model
+        self.model_type = model_name
         self.llm = OpenAI(api_key= self.api_key)
         self.system_message = {"role": "system", "content":  f"Please act as a translator from {self.source_language} to {self.target_language}. The following is a quarto markdown file: please only translate the textual content, leaving the quarto and markdown instructions in the file. Furthermore, if you come across a reference within regular text which is annotated with an \"@\" sign, please leave it as is. Example: @fig-C9.G.3."}
 

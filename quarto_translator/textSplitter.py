@@ -11,9 +11,9 @@ class QuartoTextSplitter():
     receives a string containing a single document and returns a list of splits
     splits the document based on Markdown headers level 1, 2 and 3 (#, ##, ###)
     """
-    def __init__(self, chunk_size: int):
+    def __init__(self, chunk_size: int, model_name = "gpt-4"):
         
-        self.md_text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(encoding_name= "cl100kbase", model_name= "gpt-3.5-turbo", chunk_size = chunk_size, chunk_overlap = 0, separators=[":::","\n\n", "\n", " ", ""])
+        self.md_text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(encoding_name= "cl100kbase", model_name= model_name, chunk_size = chunk_size, chunk_overlap = 0, separators=[":::","\n\n", "\n", " ", ""])
 
 
     def splitAllTextFileDict(self, file_dict: dict):

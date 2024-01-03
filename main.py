@@ -28,10 +28,10 @@ def main():
     loader = DocLoader(configparser = configparser)
     loader.loadContents()
     #makeEstimate(loader)
-    splitter = QuartoTextSplitter(chunk_size= 2000)
+    splitter = QuartoTextSplitter(chunk_size= 2000, model_name="gpt-4")
     all_files = loader.getContentsDict()
     text_splits = splitter.splitAllTextFileDict(all_files)
-    translator = Translator(file_chunk_dict=text_splits, parser=configparser)
+    translator = Translator(file_chunk_dict=text_splits, parser=configparser, model_name="gpt-4")
     filepath_test = "/home/max/Documents/quarto_translator/source/wahrscheinlichkeitsrechnung2.qmd"
     translated_file = translator.translateFile(filepath_test)
     translator.writeSingleFileToTarget(filepath=filepath_test, file_string_content=translated_file)
