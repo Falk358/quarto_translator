@@ -20,7 +20,7 @@ class ReconstructionTest(unittest.TestCase):
         self.docloader.loadContents()
         self.test_file_contents_dict = self.docloader.getContentsDict()
         
-        self.chunk_size = 3000
+        self.chunk_size = 2000
         test_doc = Document(page_content= "this is a test document for testing reconstruction\n here is a new line", metadata= {"h1": "Test Header 1", "h2": "Test Header 2"})
         self.test_doc = test_doc
         self.test_doc_result = "# Test Header 1\n ## Test Header 2\n this is a test document for testing reconstruction\n here is a new line"
