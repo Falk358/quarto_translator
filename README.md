@@ -14,6 +14,7 @@ Fill in the [template.config](template.config) file and rename it to `translator
 - `SOURCE_PATH`: Path to the Quarto source documents.
 - `TARGET_PATH`: Path for storing the translated Quarto documents.
 - `API_KEY`: OpenAI API key. The account needs to be created on the [OpenAI API website](https://openai.com/blog/openai-api) in combination with a credit card.
+- `MODEL_NAME`: Name of the model you want to use, according to Openai's model name (example: `gpt-3.5-turbo`)
 - `SOURCE_LANGUAGE`: Natural language that the Quarto source documents are written in, e.g., `German`.
 - `TARGET_LANGUAGE`: Natural language that the Quarto documents should be translated to, e.g., `English`.
 
