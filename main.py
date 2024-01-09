@@ -25,6 +25,7 @@ def main():
 
     configparser = ConfigParser()
     configparser.read("translator.config")
+<<<<<<< Updated upstream
     model = configparser.get(section="openai", option="MODEL_NAME")
     print(f"Using openai model {model}")
 
@@ -41,6 +42,18 @@ def main():
     #translator.writeSingleFileToTarget(filepath=filepath_test, file_string_content=translated_file)
     translated_file_dict = translator.translateAllFiles()
     translator.writeAllFilesToTarget(translated_file_dict)
+=======
+    loader = DocLoader(configparser = configparser)
+    loader.loadContents()
+    makeEstimate(loader)
+    splitter = QuartoTextSplitter(chunk_size= 3000)
+    all_files = loader.getContentsDict()
+    text_splits = splitter.splitAllTextFileDict(all_files)
+    translator = Translator(parser= configparser, file_chunk_dict=text_splits)
+    translated_file = translator.translateFile("/home/max/Documents/quarto_translator/source/wahrscheinlichkeitsrechnung2.qmd")
+    print(translated_file)
+    #splitter.printFileChunks(text_splits["/home/max/Documents/quarto_translator/source/wahrscheinlichkeitsrechnung2.qmd"])
+>>>>>>> Stashed changes
 
 
 
