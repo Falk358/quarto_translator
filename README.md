@@ -18,3 +18,6 @@ Fill in the [template.config](template.config) file and rename it to `translator
 - `SOURCE_LANGUAGE`: Natural language that the Quarto source documents are written in, e.g., `German`.
 - `TARGET_LANGUAGE`: Natural language that the Quarto documents should be translated to, e.g., `English`.
 
+Please run the program by executing `main.py`:
+
+```python3 main.py```
