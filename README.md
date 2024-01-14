@@ -9,6 +9,9 @@ Note that this program has only been tested for Linux, functionality on Windows 
 
 ## Usage
 
+Install dependencies by running:
+```python3 -m pip install -r requirements.txt```
+
 Fill in the [template.config](template.config) file and rename it to `translator.config`. The following fields are needed:
 
 - `SOURCE_PATH`: Path to the Quarto source documents.
