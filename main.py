@@ -1,9 +1,10 @@
 from quarto_translator.tokenCounter import TokenCounter
+import sys
 from quarto_translator.docLoader import DocLoader
 from configparser import ConfigParser
 from quarto_translator.textSplitter import QuartoTextSplitter
 from quarto_translator.translator import Translator
-
+import argparse
 
 
 
@@ -22,10 +23,15 @@ def makeEstimate(loader: DocLoader):
 
 
 def main():
-
+    arg_parse = argparse.ArgumentParser(prog="quartoTranslator", description="translate written text in Quarto file from source language to target language, leaving syntax mostly intact.",
+                               epilog="Usage: python3 main.py -c template.config")
+    arg_parse.add_argument("-c", "--config")
+    cmd_args = arg_parse.parse_args()
+    if cmd_args.config is None:
+        print("Error: Missing argument --config: \nUsage:\n python3 main.py -c template.config\n python3 main.py --config template.config")
+        sys.exit(-1)
     configparser = ConfigParser()
-    configparser.read("translator.config")
-<<<<<<< Updated upstream
+    configparser.read(cmd_args.config)
     model = configparser.get(section="openai", option="MODEL_NAME")
     print(f"Using openai model {model}")
 
@@ -37,37 +43,8 @@ def main():
     text_splits = splitter.splitAllTextFileDict(all_files)
 
     translator = Translator(file_chunk_dict=text_splits, parser=configparser, model_name=model)
-    #filepath_test = "/home/max/Documents/quarto_translator/source/wahrscheinlichkeitsrechnung2.qmd"
-    #translated_file = translator.translateFile(filepath_test)
-    #translator.writeSingleFileToTarget(filepath=filepath_test, file_string_content=translated_file)
     translated_file_dict = translator.translateAllFiles()
     translator.writeAllFilesToTarget(translated_file_dict)
-=======
-    loader = DocLoader(configparser = configparser)
-    loader.loadContents()
-    makeEstimate(loader)
-    splitter = QuartoTextSplitter(chunk_size= 3000)
-    all_files = loader.getContentsDict()
-    text_splits = splitter.splitAllTextFileDict(all_files)
-    translator = Translator(parser= configparser, file_chunk_dict=text_splits)
-    translated_file = translator.translateFile("/home/max/Documents/quarto_translator/source/wahrscheinlichkeitsrechnung2.qmd")
-    print(translated_file)
-    #splitter.printFileChunks(text_splits["/home/max/Documents/quarto_translator/source/wahrscheinlichkeitsrechnung2.qmd"])
->>>>>>> Stashed changes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
