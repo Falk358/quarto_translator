@@ -15,7 +15,7 @@ class Translator():
         self.__setup(parser)
         self.model_type = model_name
         self.llm = OpenAI(api_key= self.api_key)
-        self.system_message = {"role": "system", "content":  f"Please act as a translator from {self.source_language} to {self.target_language}. The following is a quarto markdown file: please only translate the textual content, leaving the quarto and markdown instructions in the file. Furthermore, if you come across a reference within regular text which is annotated with an \"@\" sign, please leave it as is. Example: @fig-C9.G.3."}
+        self.system_message = {"role": "system", "content":  f"Please act as a translator from {self.source_language} to {self.target_language}. The following is a quarto markdown file: please only translate the textual content, leaving the quarto, knitr and markdown instructions in the file. Furthermore, if you come across a reference within regular text which is annotated with an \"@\" sign, please leave it as is. Example: @fig-C9.G.3."}
 
 
     def __setup(self, parser):
@@ -57,6 +57,7 @@ class Translator():
         for path in self.file_chunk_dict:
             translated_file_str = self.translateFile(path)
             translated_file_dict[path] = translated_file_str
+            self.writeSingleFileToTarget(filepath=path, file_string_content=translated_file_str)
 
         return translated_file_dict
 
