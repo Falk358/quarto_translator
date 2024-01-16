@@ -10,12 +10,14 @@ class DocLoader():
     """
     def __init__(self, configparser : ConfigParser, file_type=".qmd"):
         self.file_names = []
+        self.file_contents = {} # contains path_to_file as key and file contents (string) as val
+
         source_folder = configparser.get("filepaths", "SOURCE_PATH")
         source_folder = os.path.expanduser(source_folder)
         if not os.path.exists(source_folder):
             print(f"error finding directory with path {source_folder}")
             return
-        self.file_contents = {} # contains path_to_file as key and file contents (string) as val
+
         self.__findFilenames(source_folder, file_type)
     
 
@@ -23,7 +25,7 @@ class DocLoader():
     def __findFilenames(self, source_folder: str, file_type : str):
         for root, _, files in os.walk(source_folder, topdown=True):
             for file_name in files:
-                print(file_name)
+                #print(file_name)
                 _, extension = os.path.splitext(file_name)
                 if extension == file_type:
                     path_to_file = os.path.join(root, file_name)
@@ -41,6 +43,12 @@ class DocLoader():
 
     def getContentsDict(self):
         return self.file_contents
+
+    def getFileNames(self):
+        """
+        return individual file names in source folder
+        """
+        return self.file_names
 
     def printContents(self):
         for key, value in self.file_contents.items():

@@ -24,3 +24,8 @@ Fill in the [template.config](template.config) file. The following fields are ne
 Please run the program by executing `main.py`:
 
 ```python3 main.py -c template.config```
+
+
+If you want to select which files to translate, run it with the `-s` or `--select` flag:
+
+```python3 main.py -c template.config -s```
